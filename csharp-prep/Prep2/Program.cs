@@ -8,37 +8,39 @@ class Program
         Console . Write("Enter your grade persentege: ");
         string gradeFromUser = Console.ReadLine();
         double gradePercentage = double.Parse(gradeFromUser);
-
+        
+         string letter = "";
 
         if (gradePercentage > 100)
         {
-            Console.WriteLine("Enter values ​​from 0 to 100.");
+            Console.WriteLine("Enter values from 0 to 100.");
         }
         else if (gradePercentage >= 90)
         {
-           Console.WriteLine($"Your grade is A."); 
+          letter = "A"; 
         }
         else if(gradePercentage >= 80)
         {
-            Console.WriteLine("Your grade is B.");
+            letter = "B";
         }
 
         else if(gradePercentage >= 70)
         {
-            Console.WriteLine("Your grande is C.");
+            letter = "C";
         } 
         else if (gradePercentage >= 60)
         {
-            Console.WriteLine("Your grade is D.");
+            letter = "D";
         }
         else if (gradePercentage < 60)
         {
-            Console.WriteLine("Your grade is F.");
+            letter = "F";
         }
+        Console.WriteLine($"Your grade is: {letter}");
 
         if (gradePercentage > 100)
         {
-            Console.WriteLine("Enter values​from 0 to 100");
+            Console.WriteLine("Enter values from 0 to 100");
         }
         else if (gradePercentage >=70)
         {
