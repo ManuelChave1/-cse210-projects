@@ -77,7 +77,7 @@ class Memorizer
         foreach (string word in words)
         {
             if (hiddenWords.Contains(word))
-                hiddenText.Append(new string('*', word.Length) + " ");
+                hiddenText.Append(new string('-', word.Length) + " ");
             else
                 hiddenText.Append(word + " ");
         }
