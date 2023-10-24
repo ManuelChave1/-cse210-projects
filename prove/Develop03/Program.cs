@@ -7,18 +7,15 @@ class Program
 {
     static void Main()
     {
-        // Create a Scripture instance with a reference and 
-        Scripture scripture = new Scripture("1 Nephi 3:7", "And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, for I know that the Lord giveth no commandments unto the children of men, save he shall prepare a way for them that they may accomplish the thing which he commandeth them.");
-
-        // Create a Memorizer and associate it with the scripture
-        Memorizer memorizer = new Memorizer(scripture);
+        var scripture = new Scripture("1 Nephi 3:7", "And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, for I know that the Lord giveth no commandments unto the children of men, save he shall prepare a way for them that they may accomplish the thing which he commandeth them.");
+        var memorizer = new Memorizer(scripture);
 
         while (memorizer.HasWordsToHide())
         {
             Console.Clear();
             Console.WriteLine(memorizer.GetHiddenScripture());
             Console.WriteLine("\nPress Enter to continue or type 'quit' to exit.");
-            string input = Console.ReadLine();
+            var input = Console.ReadLine();
 
             if (input.Equals("quit", StringComparison.OrdinalIgnoreCase))
                 break;
@@ -34,54 +31,64 @@ class Scripture
 {
     public string Reference { get; private set; }
     public string Text { get; private set; }
+    public List<Word> Words { get; private set; }
 
     public Scripture(string reference, string text)
     {
         Reference = reference;
         Text = text;
+        Words = text.Split(' ').Select(_ => new Word(_)).ToList();
+    }
+}
+
+class Word
+{
+    public string Text { get; private set; }
+    public bool IsHidden { get; set; }
+
+    public Word(string text)
+    {
+        Text = text;
+        IsHidden = false;
     }
 }
 
 class Memorizer
 {
-    private Scripture scripture;
-    private List<string> hiddenWords;
+    private Scripture _scripture;
 
     public Memorizer(Scripture scripture)
     {
-        this.scripture = scripture;
-        hiddenWords = new List<string>();
+        _scripture = scripture;
     }
 
     public bool HasWordsToHide()
     {
-        return hiddenWords.Count < scripture.Text.Split(' ').Length;
+        return _scripture.Words.Any(_ => !_.IsHidden);
     }
 
     public void HideRandomWords()
     {
-        string[] words = scripture.Text.Split(' ');
-        List<string> visibleWords = words.Except(hiddenWords).ToList();
-        if (visibleWords.Count > 0)
+        var hiddenWords = _scripture.Words.Where(_ => !_.IsHidden).ToList();
+        if (hiddenWords.Count > 0)
         {
-            int index = new Random().Next(visibleWords.Count);
-            hiddenWords.Add(visibleWords[index]);
+            var index = new Random().Next(hiddenWords.Count);
+            hiddenWords[index].IsHidden = true;
         }
     }
 
     public string GetHiddenScripture()
     {
-        string[] words = scripture.Text.Split(' ');
-        StringBuilder hiddenText = new StringBuilder();
+        var hiddenText = new StringBuilder();
 
-        foreach (string word in words)
+        foreach (var word in _scripture.Words)
         {
-            if (hiddenWords.Contains(word))
-                hiddenText.Append(new string('-', word.Length) + " ");
+            if (word.IsHidden)
+                hiddenText.Append(new string('_', word.Text.Length) + " ");
             else
-                hiddenText.Append(word + " ");
+                hiddenText.Append(word.Text + " ");
         }
 
-        return $"{scripture.Reference}\n{hiddenText.ToString().Trim()}";
+        return $"{_scripture.Reference}\n{hiddenText.ToString().Trim()}";
     }
 }
