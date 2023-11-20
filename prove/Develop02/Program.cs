@@ -166,12 +166,14 @@ class UserInterface
     }
 }
 
+
 class Program
 {
-    static void Main(string[] args)
-    {
-        Journal journal = new Journal();
-        UserInterface userInterface = new UserInterface(journal);
-        userInterface.DisplayMenu();
-    }
+ static void Main()
+ {
+
+Journal journal = new Journal();
+UserInterface userInterface = new UserInterface(journal);
+userInterface.DisplayMenu();
+}
 }
