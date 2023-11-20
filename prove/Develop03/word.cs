@@ -5,7 +5,6 @@ using System.Text;
     public class Word
     {
 
-         //Aqui a string virac uma lista de char
  private Scripture _scripture;
 
  public Word(Scripture scripture){
@@ -13,6 +12,8 @@ using System.Text;
  }
 
 public void word() {
+
+//Here the string becomes a list of char
 var words= _scripture._text.Split();
 Console.Clear();
 
@@ -22,23 +23,22 @@ int pos = 0;
 
 for (int i = 0; i < words.Count(); i++)
 {
-    //A cada tecla pressionada o char é subsituido por '-'
+    //With each key pressed, the char is replaced by '-'
     Console.ReadLine();
     Console.Clear();
 
-    //Pega uma sring aleatória e verifica se ja foi usada
+    //Take a random string and check if it has already been used
     while (true)
     {
         pos = rdm.Next(0, words.Count() - 1);
 
-        //Para a aplicação
         if (hiddenWords.Count() == words.Count() - 1)
         {
             Console.ReadLine();
             Environment.Exit(1);
         }
 
-        //Adiciona na lista
+        //Add to list
         if (!hiddenWords.Any(x => x == pos))
         {
             hiddenWords.Add(pos);
@@ -47,10 +47,10 @@ for (int i = 0; i < words.Count(); i++)
 
     }
 
-    //Muda a string
+    //Change the string
     words[pos] = "-";
 
-    //A lista de char volta a ser uma string e mostra na tela
+    //The char list returns to a string and shows on the screen
     StringBuilder str = new StringBuilder();
     _scripture._text = str.AppendJoin(" ", words).ToString();
     Console.WriteLine(_scripture._text);
