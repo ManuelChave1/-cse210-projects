@@ -169,11 +169,11 @@ class UserInterface
 
 class Program
 {
- static void Main()
- {
+    static void Main()
+    {
 
-Journal journal = new Journal();
-UserInterface userInterface = new UserInterface(journal);
-userInterface.DisplayMenu();
-}
+        Journal journal = new Journal();
+        UserInterface userInterface = new UserInterface(journal);
+        userInterface.DisplayMenu();
+    }
 }

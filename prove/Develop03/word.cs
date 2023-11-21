@@ -53,15 +53,13 @@ for (int i = 0; i < words.Count(); i++)
     //The char list returns to a string and shows on the screen
     StringBuilder str = new StringBuilder();
     _scripture._text = str.AppendJoin(" ", words).ToString();
-    Console.WriteLine(_scripture._text);
+    Console.WriteLine("{0} \n {1}" ,_scripture._reference,_scripture._text);
 
-    Console.WriteLine("\nPress Enter do contue or type 'quit' to exit");
+    Console.WriteLine("\nPress Enter do continue or type 'quit' to exit");
     string input = Console.ReadLine();
     if (input == "quit")
     {
-        Console.WriteLine("Voce desistiu do jogo");
-        break;
-        
+        break; 
     }
      
    }
@@ -70,4 +68,5 @@ for (int i = 0; i < words.Count(); i++)
     }
 
    
+
 
